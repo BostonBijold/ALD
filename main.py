@@ -9,6 +9,16 @@ my_db = my_client["ALD"]
 to_do_col = my_db["to_do_items"]
 
 
+class todo_task:
+    def __init__(self, title, details, priority, deadline, complete, completed_datetime):
+        self.title = title
+        self.details = details
+        self.priority = priority
+        self.deadline = deadline
+        self.complete = complete
+        self.completed_datetime = completed_datetime
+
+
 def enter_to_do():
     to_do_title = input("what do you need to do today(title)? ")
     to_do_details = input("what do you need to do to complete it? ")
@@ -27,6 +37,8 @@ def enter_to_do():
         "complete": to_do_complete,
         "deadline": to_do_deadline,
         "priority": to_do_priority
+        # completed notes: where users can add notes to a completed task if they want to track how things changed.
+        # completed - timestamp: when did a user complete the task, if null the task is incomplete.
     }
     print(new_todo)
     to_do_col.insert_one(new_todo)
@@ -58,6 +70,7 @@ def main():
     while True:
         print("")
         print("ALD: To do list")
+        print("What is your plan for the day?")
         print("")
         print("1. enter to do")
         print("2. view today's list")
@@ -66,7 +79,7 @@ def main():
         if x == 1:
             enter_to_do()
             print("----------------")
-        if x == 2:
+        if x == 2: # if x != 2 break. this will catch all errors, logic similar to this.
             view_todays_list()
             print("----------------")
 
