@@ -1,22 +1,15 @@
 import datetime
-# import Flask
+from flask import Flask
 import pymongo
+import json
+import api
+import todoclass
 # from datetime import date
 
 
 my_client = pymongo.MongoClient("mongodb://localhost:27017/")
 my_db = my_client["ALD"]
 to_do_col = my_db["to_do_items"]
-
-
-class todo_task:
-    def __init__(self, title, details, priority, deadline, complete, completed_datetime):
-        self.title = title
-        self.details = details
-        self.priority = priority
-        self.deadline = deadline
-        self.complete = complete
-        self.completed_datetime = completed_datetime
 
 
 def enter_to_do():
@@ -29,6 +22,10 @@ def enter_to_do():
                                        day=to_do_date.day, hour=23, minute=59).strftime("%Y-%m-%d %H:%M:%S")
     to_do_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     to_do_complete = False
+
+    new = todoclass.todo_task(to_do_title, to_do_details, to_do_priority, to_do_deadline, to_do_complete, completed_datetime= 0)
+    print(new)
+    print(vars(new))
 
     new_todo = {
         "title": to_do_title,
@@ -49,6 +46,7 @@ def view_todays_list():
     completed_datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # cuts the search down to only today's to_do list.
     to_do_list = to_do_col.find({"date": {"$gte": today}})
+
     for x in to_do_list:
         print("")
         print("I need to :", x['title'])
@@ -57,6 +55,9 @@ def view_todays_list():
         print("By :", x["deadline"])
         print("Is complete? ", x["complete"])
         print("----------------")
+        new = todoclass.todo_task(x['title'], x["details"], x["priority"], x["deadline"], x["complete"],
+                        completed_datetime=0)
+        print(new.title)
 
     completed = input("Did you complete one? (y/n) ")
 
@@ -88,4 +89,5 @@ def main():
 
 
 if __name__ == "__main__":
+    # api.app.run()
     main()
