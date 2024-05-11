@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>To Do List App</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="todo">
+                <h2>Aim - To do list <img src="images/aim.png"></h2>
+                <button id='modalButton'>Add Task</button>
+                <div class="row">
+                    <!-- <input type="text" id="input-box" placeholder="your text"> -->
+                    <!-- <button onclick="addTask()" >Add</button> -->
+                    <div id="todoModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="row">
+                                <input type="text" id="input-box" placeholder="todo tile">
+                            </div>
+                            <div class="row">
+                                <input type="text" id="details-box" placeholder="todo details">
+                            </div>
+                            <lable for="priority">What is the priority?</lable>
+                            <select name="priority" id="priority">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+
+                            </select>
+                            <div>
+                                <button onclick="addTask()" >Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul id="list-container">
+                    <!-- <li class="checked">Task 1</li>
+                    <li>Task 1</li>
+                    <li>Task 1</li> -->
+                </ul>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
+
+
+<!-- <li class="checked">test modal window<span> How the data is stored.  -->
